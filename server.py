@@ -15,7 +15,7 @@ server.bind(ADDR)
 
 
 def spectate():
-    spectate_button = pyautogui.locateCenterOnScreen('spectate.png')
+    spectate_button = pyautogui.locateCenterOnScreen('spectate.png', confidence=.7)
     if spectate_button:
         pyautogui.moveTo(spectate_button)
         pyautogui.click()
@@ -40,6 +40,7 @@ def handle_client(conn, addr):
         except:
             if conn in conns:
                 conns.remove(conn)
+                conn.close()
                 break
 
 
