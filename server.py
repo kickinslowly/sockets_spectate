@@ -1,6 +1,7 @@
 import socket
 import threading
 import pyautogui
+import keyboard
 
 HEADER = 64
 PORT = 5050
@@ -47,10 +48,15 @@ def handle_client(conn, addr):
 def command():
     while True:
         global conns
-        input()
-        for i in conns:
-            i.send('spectate'.encode(FORMAT))
-        spectate()
+        waiting = True
+        while waiting:
+            if keyboard.is_pressed('p'):
+                waiting = False
+                for i in conns:
+                    i.send('spectate'.encode(FORMAT))
+                spectate()
+            else:
+                pass
 
 
 def start():
